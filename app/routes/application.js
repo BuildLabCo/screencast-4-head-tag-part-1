@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  titleToken: "AcmeCo"
+  // the title in the application route is a function
+  // that receives the bubbled tokens from child routes
+  title: function(tokens) {
+    console.log(tokens);
+    let base = 'AcmeCo';
+    return base;
+  },
 });
