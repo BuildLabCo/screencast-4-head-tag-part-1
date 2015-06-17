@@ -8,17 +8,26 @@ export default Ember.Route.extend({
 
   actions: {
 
-    // we can now see in this commit that when we make the title
-    // a function, our path breaks down. So we will refactor in the next commit
     didTransition: function() {
 
-      let handlers = this.router.router.currentHandlerInfos;
+      // renamed to leafs. Should do this upfront
+      let leafs = this.router.router.currentHandlerInfos;
 
-      let path = _.chain(handlers)
-        .pluck('handler.title')
+      // if the title is a function, then call it in the context of the leaf handler
+      let path = _.chain(leafs)
+        .map(function(leaf) {
+          let leafTitle = leaf.handler.title;
+          if (leafTitle !== undefined) {
+            if (typeof leafTitle === 'string') {
+              return leafTitle;
+            } else {
+              return leafTitle.call(leaf.handler);
+            }
+          }
+        })
         .compact()
         .join(" / ")
-        .value()
+        .value();
 
       console.log(path);
 
