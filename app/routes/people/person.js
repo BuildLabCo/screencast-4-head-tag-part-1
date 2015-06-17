@@ -2,8 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  titleToken: function() {
-    return this.get('currentModel.name');
+  title: function() {
+    return `${this.get('currentModel.name')} Is Amazing!`;
   },
 
   model: function(params) {
