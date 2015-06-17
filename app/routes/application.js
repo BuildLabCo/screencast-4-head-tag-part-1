@@ -33,7 +33,7 @@ export default Ember.Route.extend({
           { getHandlerTitle } = this;
 
       let path = (activeLeafHasTitle) ? getHandlerTitle(activeMostLeaf, "title") : _.chain(leafs)
-        .map((leaf) => this.getHandlerTitle(leaf)) //needed to refactor this because the map will pass the index as the second parameter
+        .map((leaf) => this.getHandlerTitle(leaf)) //needed to refactor this because the map will pass the index as the second
         .compact()
         .join(" / ")
         .value();
