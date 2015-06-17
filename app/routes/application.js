@@ -5,17 +5,13 @@ export default Ember.Route.extend({
   titleToken: "AcmeCo",
 
 
-  // In this commit, what if the user wants a specific route to override the title?
-  // It makes sense that this would only happen on the active most leaf route
-  // so let's refactor
-  // rename all title properties to titleToken
-  // add the title property to the person
+  // In this commit, refactor this method to accept a property
+  getHandlerTitle: function(leaf, prop) {
+    if ([undefined,null].indexOf(prop) > -1) {
+      prop = "titleToken";
+    }
+    let leafTitle = leaf.handler[prop];
 
-
-  // Refactor the handler title to a function here
-  // In the next commit we'll need to refactor this to accept a property other than titleToken
-  getHandlerTitle: function(leaf) {
-    let leafTitle = leaf.handler.titleToken;
     if (leafTitle !== undefined) {
       if (typeof leafTitle === 'string') {
         return leafTitle;
@@ -36,8 +32,8 @@ export default Ember.Route.extend({
           activeLeafHasTitle  = [undefined, null].indexOf(activeMostLeaf.handler.title) === -1,
           { getHandlerTitle } = this;
 
-      let path = (activeLeafHasTitle) ? getHandlerTitle(activeMostLeaf) : _.chain(leafs)
-        .map(getHandlerTitle)
+      let path = (activeLeafHasTitle) ? getHandlerTitle(activeMostLeaf, "title") : _.chain(leafs)
+        .map((leaf) => this.getHandlerTitle(leaf)) //needed to refactor this because the map will pass the index as the second parameter
         .compact()
         .join(" / ")
         .value();
