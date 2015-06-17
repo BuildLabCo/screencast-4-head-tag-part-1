@@ -2,21 +2,23 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  // First: "Add the title for this route"
-  title: "AcmeCo",
+  titleToken: "AcmeCo",
 
 
+  // In this commit, what if the user wants a specific route to override the title?
+  // It makes sense that this would only happen on the active most leaf route
+  // so let's refactor
+  // rename all title properties to titleToken
+  // add the title property to the person
   actions: {
 
     didTransition: function() {
 
-      // renamed to leafs. Should do this upfront
       let leafs = this.router.router.currentHandlerInfos;
 
-      // if the title is a function, then call it in the context of the leaf handler
       let path = _.chain(leafs)
         .map(function(leaf) {
-          let leafTitle = leaf.handler.title;
+          let leafTitle = leaf.handler.titleToken;
           if (leafTitle !== undefined) {
             if (typeof leafTitle === 'string') {
               return leafTitle;

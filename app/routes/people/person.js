@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  title: function() {
+  titleToken: function() {
     return this.get('currentModel.name');
   },
 
