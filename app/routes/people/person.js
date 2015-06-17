@@ -2,6 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  title: function() {
+    return this.get('currentModel.name');
+  },
+
   model: function(params) {
     return this.store.getById('person', params.id);
   },

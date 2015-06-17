@@ -8,25 +8,20 @@ export default Ember.Route.extend({
 
   actions: {
 
+    // we can now see in this commit that when we make the title
+    // a function, our path breaks down. So we will refactor in the next commit
     didTransition: function() {
-      // Second: grab the routes for all active leafs
+
       let handlers = this.router.router.currentHandlerInfos;
 
-      // Third: Show that we can get the title for this route in the console
-      // by: handlers[0].handler.title
-
-      // Fourth: Add the title to the people route
-      // Fifth: Now we want to create a tokenized path
       let path = _.chain(handlers)
         .pluck('handler.title')
         .compact()
         .join(" / ")
         .value()
 
-      // Six: Console log out so the user can see
-      console.log(path);  
+      console.log(path);
 
-      // Seven: Add the join in the path above and set the Doc title
       document.title = path;
     }
   }
