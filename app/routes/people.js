@@ -7,6 +7,10 @@ export default Ember.Route.extend({
       this.store.pushPayload('person', res);
       return this.store.all('person');
     });
+  },
+
+  activate: function() {
+    document.title = "People";
   }
 
 });

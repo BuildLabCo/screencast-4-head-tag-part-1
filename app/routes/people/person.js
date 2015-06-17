@@ -17,7 +17,13 @@ export default Ember.Route.extend({
       nextPerson: models.objectAt(next),
       previousPerson: models.objectAt(prev)
     });
+  },
 
+  // So not only does this overwrite the last document title
+  // this hook doesn't update when the underlying model changes
+  // so this is definitely not the right direction to take
+  activate: function() {
+    document.title = this.modelFor('people.person').get('name');
   }
 
 });
