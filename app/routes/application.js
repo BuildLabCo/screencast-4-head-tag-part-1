@@ -20,11 +20,14 @@ export default Ember.Route.extend({
       let path = _.chain(handlers)
         .pluck('handler.title')
         .compact()
+        .join(" / ")
         .value()
 
       // Six: Console log out so the user can see
       console.log(path);  
 
+      // Seven: Add the join in the path above and set the Doc title
+      document.title = path;
     }
   }
 
