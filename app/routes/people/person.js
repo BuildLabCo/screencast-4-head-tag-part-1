@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  // Override whatever the document title is
+  // with this.
+  title: function() {
+    return this.get('currentModel.name');
+  },
+
   model: function(params) {
     return this.store.getById('person', params.id);
   },
